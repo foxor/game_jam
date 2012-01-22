@@ -17,11 +17,19 @@ package {
         }
 
         public function draw(timeDelta:int):void {
-            
+			for (var i:int = numChildren - 1; i > 0; i--) {
+				if (getChildAt(i) is GameObject) {
+					(getChildAt(i) as GameObject).draw(timeDelta);
+				}
+			}
         }
         
         public function process(timeDelta:int):void {
-            
+            for (var i:int = numChildren - 1; i > 0; i--) {
+				if (getChildAt(i) is GameObject) {
+					(getChildAt(i) as GameObject).process(timeDelta);
+				}
+			}
         }
     }
 }

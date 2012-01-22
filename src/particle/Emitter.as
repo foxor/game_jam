@@ -5,7 +5,7 @@ package particle
 
 	public class Emitter extends GameObject
 	{
-		protected var particle:Sprite;
+		protected var particle:Class;
 		protected var numParticles:int;
 		protected var timeLeft:int;
 		protected var totalTime:int;
@@ -14,10 +14,10 @@ package particle
 		protected var radius:int;
 		protected var speed:int;
 		
-		public function Emitter(particle:Sprite, numParticles:int=20, time:int=10, velocity:Point=null, radius:int=10, speed:int=2)
+		public function Emitter(particle:Class, numParticles:int=20, time:int=10, velocity:Point=null, radius:int=10, speed:int=2)
 		{
 			if (velocity == null) {
-				velocity = new Point(0, 0);
+				this.velocity = new Point(0, 0);
 			}
 			this.particle = particle;
 			this.numParticles = numParticles;
@@ -29,13 +29,13 @@ package particle
 		}
 		
 		override public function process (dt:int):void {
-			this.timeLeft -= dt;
-			var toFire = (numParticles * (totalTime - timeLeft)) - particlesFired;
+			this.timeLeft -= 1;
+			var toFire = (numParticles * (totalTime - timeLeft)) / totalTime - particlesFired;
 			for (; toFire > 0; toFire--) {
 				var newVelocity:Point = velocity.clone();
 				newVelocity.x += ((Math.random() * 2 - 1) * radius) / speed;
 				newVelocity.y += ((Math.random() * 2 - 1) * radius) / speed;
-				parent.addChild(new Particle(newVelocity, radius / speed));
+				GameObjectManager.singleton.addChild(new Particle(new particle(), newVelocity, radius / speed));
 			}
 			if (timeLeft <= 0) {
 				parent.removeChild(this);
