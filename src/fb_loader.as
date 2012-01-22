@@ -21,12 +21,12 @@ package
 			var fileRequest:URLRequest = new URLRequest("http://graph.facebook.com/" + id + "/picture");
 			myLoader.load(fileRequest);
 			
-			public function onProgressStatus(e:ProgressEvent) {   
+			function onProgressStatus(e:ProgressEvent) {   
 				// this is where progress will be monitored     
 				trace(e.bytesLoaded, e.bytesTotal); 
 			}
 			
-			public function onLoaderReady(e:Event) {     
+			function onLoaderReady(e:Event) {     
 				// the image is now loaded, so let's add it to the display tree!     
 				parent.addChild(myLoader);
 			}

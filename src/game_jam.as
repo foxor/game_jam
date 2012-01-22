@@ -13,6 +13,7 @@ package
         
         public function initialize():void {
             GameObjectManager.singleton.initialise();
+			fb_loader.load(GameObjectManager.singleton);
         }
     }
 }
