@@ -4,14 +4,14 @@ package battle {
     import flash.events.MouseEvent;
 	
 	import particle.Circle;
-	import particle.Emitter;
+	import particle.Explosion;
     
     public class Mech extends GameObject {
         
         public function Mech() {
             _sortOrder = 100;
             addChild(new Circle());
-			addChild(new Emitter(Circle));
+			addChild(new Explosion());
         }
 
         override public function onAdd():void {
