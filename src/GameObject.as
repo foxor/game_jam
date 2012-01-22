@@ -7,7 +7,15 @@ package {
         public function GameObject() {
             
         }
+
+        public function onAdd():void {
+            
+        }
         
+        public function onRemove():void {
+            
+        }
+
         public function draw(timeDelta:int):void {
             
         }

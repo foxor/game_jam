@@ -6,7 +6,7 @@ package screens {
             
         }
         
-        public function initialise():void {
+        public function initialize():void {
             
         }
         

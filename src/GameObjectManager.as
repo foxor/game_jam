@@ -1,5 +1,6 @@
 package {
     
+    import flash.display.DisplayObject;
     import flash.display.Sprite;
     import flash.events.EventDispatcher;
     
@@ -18,6 +19,18 @@ package {
         }
 
         public function initialise():void {
+        }
+        
+        override public function addChild(child:DisplayObject):DisplayObject {
+            super.addChild(child);
+            (child as GameObject).onAdd();
+            return child;
+        }
+        
+        override public function removeChild(child:DisplayObject):DisplayObject {
+            super.removeChild(child);
+            (child as GameObject).onRemove();
+            return child;
         }
         
         public function draw(frameDelta:int):void {

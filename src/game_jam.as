@@ -6,6 +6,7 @@ package
     import flash.utils.getTimer;
 
     import screens.Screen;
+    import screens.BattleScreen;
     
     [SWF(width="1000", height="1000", frameRate="60", backgroundColor="0x777777")]
     
@@ -26,12 +27,25 @@ package
 			//fb_loader.load(stage);
             stage.addChild(GameObjectManager.singleton);
 
-            _fpsTracker = new TextField();
-            _fpsTracker.textColor = 0xFFFFFF;
-            stage.addChild(_fpsTracker);
+            setupFPS();
             
             addEventListener(Event.ENTER_FRAME, onFrameEnter);
             addEventListener(Event.EXIT_FRAME, onFrameExit);
+            swapScreen(new BattleScreen());
+        }
+        
+        private function setupFPS():void {
+            var fpsBacking:Sprite = new Sprite();
+            fpsBacking.graphics.beginFill(0x000000);
+            fpsBacking.graphics.drawRect(0, 0, 40, 15);
+            fpsBacking.graphics.endFill();
+            stage.addChild(fpsBacking);
+            
+            _fpsTracker = new TextField();
+            _fpsTracker.textColor = 0xFFFFFF;
+            _fpsTracker.width = 20
+            _fpsTracker.height = 15
+            stage.addChild(_fpsTracker);
         }
         
         public function onFrameEnter(event:Event):void {
@@ -53,7 +67,7 @@ package
                 _currentScreen.shutdown();
             }
             _currentScreen = screen;
-            _currentScreen.initialise();
+            _currentScreen.initialize();
         }
         
     }
