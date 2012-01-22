@@ -4,6 +4,8 @@ package {
     
     public class GameObject extends Sprite {
         
+        protected var _sortOrder:int = int.MAX_VALUE;
+        
         public function GameObject() {
             
         }
@@ -22,6 +24,14 @@ package {
         
         public function process(timeDelta:int):void {
             
+        }
+        
+        public function get sortOrder():int {
+            return _sortOrder;
+        }
+
+        public function set sortOrder(val:int):void {
+            _sortOrder = val;
         }
     }
 }

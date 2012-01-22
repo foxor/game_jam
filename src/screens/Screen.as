@@ -1,6 +1,8 @@
 package screens {
     
-    public class Screen {
+    import flash.display.Sprite;
+    
+    public class Screen extends Sprite {
         
         public function Screen() {
             

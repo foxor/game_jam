@@ -22,8 +22,15 @@ package {
         }
         
         override public function addChild(child:DisplayObject):DisplayObject {
-            super.addChild(child);
-            (child as GameObject).onAdd();
+            var gObject:GameObject = child as GameObject;
+            for (var i:int = 0; i < numChildren; i++) {
+                var existingChild:GameObject = getChildAt(i) as GameObject;
+                if (existingChild.sortOrder >= gObject.sortOrder) {
+                    break;
+                }
+            }
+            addChildAt(gObject, i);
+            gObject.onAdd();
             return child;
         }
         

@@ -6,6 +6,7 @@ package battle {
     public class Mech extends GameObject {
         
         public function Mech() {
+            _sortOrder = 100;
             var circle:Sprite = new Sprite();
             circle.graphics.beginFill(0xFF794B);
             circle.graphics.drawCircle(50, 50, 30);

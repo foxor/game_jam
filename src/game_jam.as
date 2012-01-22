@@ -67,6 +67,7 @@ package
                 _currentScreen.shutdown();
             }
             _currentScreen = screen;
+            stage.addChild(_currentScreen);
             _currentScreen.initialize();
         }
         
