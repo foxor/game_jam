@@ -10,7 +10,7 @@ package screens
 		private var responsibilities:Vector.<GameObject> = new Vector.<GameObject>();
 		protected var bottom:int = 0;
 		
-		public function Menu(title:String="TEMP_MENU")
+		public function Menu(title:String)
 		{
 			var background:GameObject = new GameObject();
 			background.sortOrder = 10;
@@ -20,9 +20,6 @@ package screens
 			GameObjectManager.singleton.addChild(background);
 			
 			buildTitle(title);
-			addOption(0x00FF00, "Easy");
-			addOption(0xFFFF00, "Medium");
-			addOption(0xFF0000, "Hard");
 		}
 		
 		protected function buildTitle(text:String):void {

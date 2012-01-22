@@ -5,7 +5,7 @@ package
     import flash.text.TextField;
     import flash.utils.getTimer;
 
-    import screens.Menu;
+    import screens.Mission;
     
     [SWF(width="1000", height="1000", frameRate="60", backgroundColor="0x777777")]
     
@@ -29,7 +29,7 @@ package
             
             addEventListener(Event.ENTER_FRAME, onFrameEnter);
             addEventListener(Event.EXIT_FRAME, onFrameExit);
-			GameObjectManager.singleton.swapScreen(new Menu());
+			GameObjectManager.singleton.swapScreen(new Mission());
 		}
         
         private function setupFPS():void {
