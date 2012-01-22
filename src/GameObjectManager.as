@@ -1,12 +1,11 @@
 package {
     
-    import flash.events.Event;
+    import flash.display.Sprite;
     import flash.events.EventDispatcher;
     
-    public class GameObjectManager extends EventDispatcher {
+    public class GameObjectManager extends Sprite {
         
         private static var _instance:GameObjectManager;
-        private var _children:Vector.<GameObject>;
         
         public function GameObjectManager() {
         }
@@ -19,44 +18,21 @@ package {
         }
 
         public function initialise():void {
-            _children = new Vector.<GameObject>();
-            addEventListener(Event.ENTER_FRAME, onFrameEnter);
-            addEventListener(Event.EXIT_FRAME, onFrameExit);
         }
         
-        public function addChild(child:GameObject):void {
-            if (_children.indexOf(child) >= 0) {
-                _children.push(child);    
-            }
-        }
-
-        public function removeChild(child:GameObject):void {
-            var index:int = _children.indexOf(child) 
-            if (index >= 0) {
-                _children.splice(index, 1);    
-            }
-        }
-        
-        public function onFrameEnter(event:Event):void {
-            var frameDelta:int = 0;
-            draw(frameDelta);
-            process(frameDelta);
-        }
-
-        private function draw(frameDelta:int):void {
-            for each (var child:GameObject in _children) {
+        public function draw(frameDelta:int):void {
+            for (var i:int; i < numChildren; i++) {
+                var child:GameObject = getChildAt(i) as GameObject;
                 child.draw(frameDelta);
             }
         }
 
-        private function process(frameDelta:int):void {
-            for each (var child:GameObject in _children) {
+        public function process(frameDelta:int):void {
+            for (var i:int; i < numChildren; i++) {
+                var child:GameObject = getChildAt(i) as GameObject;
                 child.process(frameDelta);
             }
         }
 
-        public function onFrameExit(event:Event):void {
-            
-        }
     }
 }
