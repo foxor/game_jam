@@ -1,4 +1,4 @@
-package GameObjects {
+package gameobjects {
     
     import flash.geom.Point;
     import flash.geom.Vector3D;

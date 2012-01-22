@@ -1,4 +1,4 @@
-package GameObjects {
+package gameobjects {
     
     import flash.display.Sprite;
     

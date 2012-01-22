@@ -3,10 +3,14 @@ package {
     import flash.display.DisplayObject;
     import flash.display.Sprite;
     import flash.events.EventDispatcher;
+	import screens.Screen;
     
     public class GameObjectManager extends Sprite {
         
         private static var _instance:GameObjectManager;
+		
+		
+		protected var _currentScreen:Screen;
         
         public function GameObjectManager() {
         }
@@ -53,6 +57,15 @@ package {
                 child.process(frameDelta);
             }
         }
-
+		
+		
+		public function swapScreen(screen:Screen):void {
+			if (_currentScreen) {
+				_currentScreen.shutDown();
+			}
+			_currentScreen = screen;
+			stage.addChild(_currentScreen);
+			_currentScreen.initialize();
+		}
     }
 }

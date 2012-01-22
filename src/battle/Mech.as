@@ -8,9 +8,11 @@ package battle {
     import flash.geom.Point;
     
     import particle.Circle;
-    import particle.Emitter;
+    import particle.Explosion;
     
     import screens.BattleScreen;
+	
+	import particle.Circle;
     
     public class Mech extends MovingGameObject {
         
@@ -20,8 +22,8 @@ package battle {
         public function Mech(owner:BattleScreen) {
             _owner = owner;
             _sortOrder = 100;
-            addChild(new Circle(0x888888));
-			addChild(new Emitter(Circle));
+            addChild(new Circle());
+			addChild(new Explosion());
         }
 
         override public function onAdd():void {
