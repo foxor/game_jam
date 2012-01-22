@@ -12,7 +12,7 @@ package screens {
             
         }
         
-        public function shutdown():void {
+        public function shutDown():void {
             
         }
     }

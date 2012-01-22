@@ -5,14 +5,12 @@ package
     import flash.text.TextField;
     import flash.utils.getTimer;
 
-    import screens.Screen;
-    import screens.BattleScreen;
+    import screens.Menu;
     
     [SWF(width="1000", height="1000", frameRate="60", backgroundColor="0x777777")]
     
     public class game_jam extends Sprite {
 
-        protected var _currentScreen:Screen;
         protected var _fpsTracker:TextField;
         protected var _lastTime:int = getTimer();
 
@@ -31,8 +29,8 @@ package
             
             addEventListener(Event.ENTER_FRAME, onFrameEnter);
             addEventListener(Event.EXIT_FRAME, onFrameExit);
-            swapScreen(new BattleScreen());
-        }
+			GameObjectManager.singleton.swapScreen(new Menu());
+		}
         
         private function setupFPS():void {
             var fpsBacking:Sprite = new Sprite();
@@ -60,15 +58,6 @@ package
         
         public function onFrameExit(event:Event):void {
             
-        }
-
-        public function swapScreen(screen:Screen):void {
-            if (_currentScreen) {
-                _currentScreen.shutdown();
-            }
-            _currentScreen = screen;
-            stage.addChild(_currentScreen);
-            _currentScreen.initialize();
         }
         
     }
