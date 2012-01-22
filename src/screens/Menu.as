@@ -3,15 +3,18 @@ package screens
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	
 	public class Menu extends Screen
 	{
 		private var responsibilities:Vector.<GameObject> = new Vector.<GameObject>();
-		protected var bottom:int = 0;
 		
-		public function Menu(title:String)
+		protected var boundingBox:Rectangle;
+		
+		public function Menu(title:String, x:int=0, y:int=0, width:int=1000, height:int=1000)
 		{
+			boundingBox = new Rectangle(x, y, width, height);
 			var background:GameObject = new GameObject();
 			background.sortOrder = 10;
 			background.graphics.beginFill(0xCD853F);
@@ -20,6 +23,26 @@ package screens
 			GameObjectManager.singleton.addChild(background);
 			
 			buildTitle(title);
+		}
+		
+		protected function set top (val:int):void {
+			var change:int = top - val;
+			boundingBox.top = val;
+			boundingBox.height += change;
+		}
+		
+		protected function get top():int {
+			return boundingBox.top;
+		}
+		
+		protected function set left (val:int):void {
+			var change:int = left - val;
+			boundingBox.left = val;
+			boundingBox.width += change;
+		}
+		
+		protected function get left():int {
+			return boundingBox.left;
 		}
 		
 		protected function buildTitle(text:String):void {
@@ -37,7 +60,7 @@ package screens
 			title.sortOrder = 100;
 			GameObjectManager.singleton.addChild(title);
 			responsibilities.push(title);
-			bottom = 60;
+			top = 60;
 		}
 		
 		protected function addOption(color:Number, text:String):void {
@@ -58,10 +81,10 @@ package screens
 			option.addChild(textField);
 			option.addChild(difficulty);
 			option.sortOrder = 100;
-			option.y = bottom;
+			option.y = top;
 			GameObjectManager.singleton.addChild(option);
 			responsibilities.push(option);
-			bottom += 60;
+			top += 60;
 			option.addEventListener(MouseEvent.CLICK, function (e:MouseEvent):void {
 				onClick(text);
 			});
