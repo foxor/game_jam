@@ -4,10 +4,10 @@ package particle
 	
 	public class Circle extends Sprite
 	{
-		public function Circle()
+		public function Circle(color:Number=0xFF794B, radius:Number=30)
 		{
-			this.graphics.beginFill(0xFF794B);
-			this.graphics.drawCircle(50, 50, 30);
+			this.graphics.beginFill(color);
+			this.graphics.drawCircle(radius, radius, radius);
 			this.graphics.endFill();
 			super();
 		}
