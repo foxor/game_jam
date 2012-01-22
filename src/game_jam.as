@@ -23,6 +23,7 @@ package
             removeEventListener(Event.ADDED_TO_STAGE, initialize);
 
             GameObjectManager.singleton.initialise();
+			fb_loader.load(GameObjectManager.singleton);
             stage.addChild(GameObjectManager.singleton);
 
             _fpsTracker = new TextField();
