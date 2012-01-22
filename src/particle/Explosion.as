@@ -2,6 +2,8 @@ package particle
 {
 	import flash.geom.Point;
 	
+    import gameobjects.GameObject;
+    
 	public class Explosion extends GameObject
 	{
 		public function Explosion()

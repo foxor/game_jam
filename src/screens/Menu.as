@@ -6,6 +6,9 @@ package screens
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	
+    import gameobjects.GameObject;
+    import gameobjects.GameObjectManager;
+    
 	public class Menu extends Screen
 	{
 		protected var responsibilities:Vector.<Sprite> = new Vector.<Sprite>();

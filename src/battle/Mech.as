@@ -1,14 +1,26 @@
 package battle {
 
+    import gameobjects.GameObjectManager;
+    import gameobjects.MovingGameObject;
+    
     import flash.display.Sprite;
     import flash.events.MouseEvent;
+    import flash.geom.Point;
+    
+    import particle.Circle;
+    import particle.Explosion;
+    
+    import screens.BattleScreen;
 	
 	import particle.Circle;
-	import particle.Explosion;
     
-    public class Mech extends GameObject {
+    public class Mech extends MovingGameObject {
         
-        public function Mech() {
+        private var _owner:BattleScreen;
+        private var _selectionHighlight:Sprite;
+        
+        public function Mech(owner:BattleScreen) {
+            _owner = owner;
             _sortOrder = 100;
             addChild(new Circle());
 			addChild(new Explosion());
@@ -26,10 +38,28 @@ package battle {
         
         public function mouseDownHandler(evt:MouseEvent):void {
             trace("mouseDown");
+            if (insideBounds(evt.stageX, evt.stageY)) {
+                if (_owner) {
+                    _owner.activeMech = this;
+                }
+            }
         }
         
         public function mouseUpHandler(evt:MouseEvent):void {
             trace("mouseUp");
+        }
+        
+        public function insideBounds(targetX:int, targetY:int):Boolean {
+            return ((targetX > x && targetX < x + width) && (targetY > y && targetX < y + height)); 
+        }
+        
+        public function addSelectionHighlight():void {
+            _selectionHighlight = new Circle(0xFF00FF, 32);
+            addChildAt(_selectionHighlight, 0);
+        }
+
+        public function removeSelectionHighlight():void {
+            removeChild(_selectionHighlight);
         }
     }
 }

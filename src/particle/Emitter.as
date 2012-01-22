@@ -2,6 +2,8 @@ package particle
 {
 	import flash.display.Sprite;
 	import flash.geom.Point;
+	import gameobjects.GameObject;
+	import gameobjects.GameObjectManager;
 
 	public class Emitter extends GameObject
 	{
