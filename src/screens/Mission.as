@@ -2,7 +2,7 @@ package screens
 {
     public class Mission extends Menu
     {
-        public function Mission(title:String="TEMP_MENU")
+        public function Mission(title:String="Mision Menu")
         {
             super(title);
 			addOption(0x00FF00, "Easy");
