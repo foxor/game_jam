@@ -7,7 +7,7 @@ package
 
     import screens.Screen;
     
-    [SWF(width="1000", height="1000", frameRate="60", backgroundColor="0xFF00CC")]
+    [SWF(width="1000", height="1000", frameRate="60", backgroundColor="0x777777")]
     
     public class game_jam extends Sprite {
 
@@ -16,16 +16,18 @@ package
         protected var _lastTime:int = getTimer();
 
         public function game_jam() {
-            initialize();
+            addEventListener(Event.ADDED_TO_STAGE, initialize, false, 0, true);
         }
         
-        public function initialize():void {
+        public function initialize(event:Event):void {
+            removeEventListener(Event.ADDED_TO_STAGE, initialize);
+
             GameObjectManager.singleton.initialise();
 			//fb_loader.load(stage);
             stage.addChild(GameObjectManager.singleton);
 
             _fpsTracker = new TextField();
-            _fpsTracker.textColor = 0xFFFF0000;
+            _fpsTracker.textColor = 0xFFFFFF;
             stage.addChild(_fpsTracker);
             
             addEventListener(Event.ENTER_FRAME, onFrameEnter);
