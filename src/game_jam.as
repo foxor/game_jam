@@ -21,7 +21,7 @@ package
         
         public function initialize():void {
             GameObjectManager.singleton.initialise();
-			fb_loader.load(GameObjectManager.singleton);
+			//fb_loader.load(stage);
             stage.addChild(GameObjectManager.singleton);
 
             _fpsTracker = new TextField();
