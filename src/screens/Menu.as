@@ -8,11 +8,11 @@ package screens
 	
 	public class Menu extends Screen
 	{
-		private var responsibilities:Vector.<GameObject> = new Vector.<GameObject>();
+		protected var responsibilities:Vector.<Sprite> = new Vector.<Sprite>();
 		
 		protected var boundingBox:Rectangle;
 		
-		public function Menu(title:String, x:int=0, y:int=0, width:int=1000, height:int=1000)
+		public function Menu(x:int=0, y:int=0, width:int=1000, height:int=1000)
 		{
 			boundingBox = new Rectangle(x, y, width, height);
 			var background:GameObject = new GameObject();
@@ -21,8 +21,6 @@ package screens
 			background.graphics.drawRect(0, 0, 1000, 1000);
 			background.graphics.endFill();
 			GameObjectManager.singleton.addChild(background);
-			
-			buildTitle(title);
 		}
 		
 		protected function set top (val:int):void {
@@ -45,6 +43,14 @@ package screens
 			return boundingBox.left;
 		}
 		
+		protected function get bWidth():int {
+			return boundingBox.width;
+		}
+		
+		protected function get bHeight():int {
+			return boundingBox.height;
+		}
+		
 		protected function buildTitle(text:String):void {
 			var textField:TextField = new TextField();
 			textField.text = text;
@@ -57,37 +63,12 @@ package screens
 			var title:GameObject = new GameObject();
 			title.addChild(hBar);
 			title.addChild(textField);
+			title.x = left;
+			title.y = top;
 			title.sortOrder = 100;
 			GameObjectManager.singleton.addChild(title);
 			responsibilities.push(title);
-			top = 60;
-		}
-		
-		protected function addOption(color:Number, text:String):void {
-			var bg:Sprite = new Sprite();
-			bg.graphics.beginFill(0xA03010);
-			bg.graphics.drawRect(0, 0, 1000, 50);
-			bg.graphics.endFill();
-			var textField:TextField = new TextField();
-			textField.text = text;
-			textField.x = 60 + (940 - textField.width) / 2;
-			textField.y = 20;
-			var difficulty:Sprite = new Sprite();
-			difficulty.graphics.beginFill(color);
-			difficulty.graphics.drawCircle(25, 25, 5);
-			difficulty.graphics.endFill();
-			var option:GameObject = new GameObject();
-			option.addChild(bg);
-			option.addChild(textField);
-			option.addChild(difficulty);
-			option.sortOrder = 100;
-			option.y = top;
-			GameObjectManager.singleton.addChild(option);
-			responsibilities.push(option);
 			top += 60;
-			option.addEventListener(MouseEvent.CLICK, function (e:MouseEvent):void {
-				onClick(text);
-			});
 		}
 		
 		protected function onClick(btnName:String):void {
