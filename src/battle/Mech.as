@@ -2,16 +2,16 @@ package battle {
 
     import flash.display.Sprite;
     import flash.events.MouseEvent;
+	
+	import particle.Circle;
+	import particle.Emitter;
     
     public class Mech extends GameObject {
         
         public function Mech() {
             _sortOrder = 100;
-            var circle:Sprite = new Sprite();
-            circle.graphics.beginFill(0xFF794B);
-            circle.graphics.drawCircle(50, 50, 30);
-            circle.graphics.endFill();
-            addChild(circle);
+            addChild(new Circle());
+			addChild(new Emitter(Circle));
         }
 
         override public function onAdd():void {
