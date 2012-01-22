@@ -4,8 +4,11 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
-	import flash.net.URLRequest;
 	import flash.external.ExternalInterface;
+	import flash.net.URLRequest;
+	
+	import gameobjects.GameObject;
+	
 
 	public class fb_loader
 	{
@@ -30,7 +33,7 @@ package
 				trace(e.bytesLoaded, e.bytesTotal); 
 			}
 			
-			function onLoaderReady(e:Event):void {     
+			function onLoaderReady(e:Event):void {
 				// the image is now loaded, so let's add it to the display tree!
 				var container:GameObject = new GameObject();
 				container.sortOrder = 100;

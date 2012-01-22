@@ -3,6 +3,8 @@ package screens
 	import battle.Mech;
 	
 	import flash.display.Sprite;
+	
+	import gameobjects.GameObjectManager;
 
 	public class LayoutMenu extends Menu
 	{
