@@ -7,6 +7,7 @@ package
 
     import screens.Screen;
     import screens.BattleScreen;
+    import gameobjects.GameObjectManager;
     
     [SWF(width="1000", height="1000", frameRate="60", backgroundColor="0x777777")]
     
