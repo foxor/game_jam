@@ -12,6 +12,9 @@ package
     import screens.Loadout;
     import screens.Mission;
     import screens.Screen;
+
+    import gameobjects.GameObjectManager;
+    import physics.PhysicsManager;
     
     [SWF(width="1000", height="1000", frameRate="60", backgroundColor="0x777777")]
     
@@ -28,6 +31,8 @@ package
             removeEventListener(Event.ADDED_TO_STAGE, initialize);
 
             GameObjectManager.singleton.initialise();
+            PhysicsManager.singleton.initialise();
+            
 			//fb_loader.load(stage);
             stage.addChild(GameObjectManager.singleton);
 
@@ -60,6 +65,7 @@ package
             _fpsTracker.text = String(Math.floor(fps));
             GameObjectManager.singleton.draw(frameDelta);
             GameObjectManager.singleton.process(frameDelta);
+            PhysicsManager.singleton.update(frameDelta);
         }
         
         public function onFrameExit(event:Event):void {
