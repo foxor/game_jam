@@ -13,6 +13,7 @@ package battle {
     
     import physics.MovingBody;
     import physics.PhysicsBody;
+    import physics.PhysicsManager;
     
     import screens.BattleScreen;
     
@@ -28,6 +29,7 @@ package battle {
             _sortOrder = 100;
             addChild(new Circle());
 			fb_loader.load(this);
+			PhysicsManager.singleton.addBody(new MechRange(this));
         }
 
         override public function onAdd():void {
@@ -37,6 +39,11 @@ package battle {
         override public function onRemove():void {
 
         }
+		
+		public function fireAt(opponent:Mech):void {
+			opponent.addChild(new Explosion());
+			opponent.visible = false;
+		}
         
         public function insideBounds(targetX:int, targetY:int):Boolean {
             return ((targetX > x && targetX < x + width) && (targetY > y && targetX < y + height)); 

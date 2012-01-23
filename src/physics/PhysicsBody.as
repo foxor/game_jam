@@ -1,4 +1,5 @@
 package physics {
+    import flash.geom.Point;
     import flash.geom.Vector3D;
     
     public class PhysicsBody {
@@ -49,6 +50,12 @@ package physics {
             _position.y = val.y;
             _position.z = val.z;
         }
+		
+		public function copyPoint(x:int, y:int, z:int=0):void {
+			_position.x = x;
+			_position.y = y;
+			_position.z = 0;
+		}
 
         public function get position():Vector3D {
             return _position;
