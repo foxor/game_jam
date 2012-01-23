@@ -1,11 +1,39 @@
 package screens
 {
+	import flash.display.Sprite;
+	import flash.events.MouseEvent;
+	
+	import gameobjects.GameObject;
+	import gameobjects.GameObjectManager;
+
 	public class Ragdoll extends Menu
 	{
 		public function Ragdoll(x:int=0, y:int=0, width:int=1000, height:int=1000)
 		{
 			super(x, y, width, height);
-			fb_loader.load(this);
+			var ragdoll:Sprite = new Sprite();
+			fb_loader.load(ragdoll);
+			ragdoll.x = bWidth / 2;
+			ragdoll.y = bHeight / 2;
+			var bg:Sprite = new Sprite();
+			bg.graphics.beginFill(0xA03010);
+			bg.graphics.drawRect(5, 5, width - 10, height - 10);
+			bg.graphics.endFill();
+			var button:Sprite = new Sprite();
+			button.graphics.beginFill(0x00FF00);
+			button.graphics.drawRect(width - 80, height - 40, 70, 30);
+			button.graphics.endFill();
+			button.addEventListener(MouseEvent.CLICK, function (e:MouseEvent):void {
+				GameObjectManager.singleton.swapScreen(new Mission());
+			});
+			var container:GameObject = new GameObject();
+			container.x = left;
+			container.y = top;
+			container.addChild(bg);
+			container.addChild(ragdoll);
+			container.addChild(button);
+			this.responsibilities.push(container);
+			GameObjectManager.singleton.addChild(container);
 		}
 	}
 }

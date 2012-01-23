@@ -1,7 +1,11 @@
 package screens
 {
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	import flash.text.TextField;
+	
+	import gameobjects.GameObject;
+	import gameobjects.GameObjectManager;
 
     public class Mission extends Menu
     {

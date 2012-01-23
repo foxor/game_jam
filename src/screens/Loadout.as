@@ -9,7 +9,7 @@ package screens
 			
 			addBlockZone(bWidth, 50, classFactory(MechSelector));
 			addBlockZone(200, bHeight, classFactory(ItemSelector));
-			addBlockZone(bWidth, bHeight, classFactory(Ragdoll));
+			addBlockZone(bWidth - 200, bHeight, classFactory(Ragdoll));
 		}
 		
 		private function classFactory(cls:Class):Function {
