@@ -17,6 +17,20 @@ package gameobjects {
         public function onRemove():void {
             
         }
+		
+		public function get totalX():int {
+			if (parent && parent is GameObject) {
+				return x + (parent as GameObject).totalX;
+			}
+			return x;
+		}
+		
+		public function get totalY():int {
+			if (parent && parent is GameObject) {
+				return y + (parent as GameObject).totalY;
+			}
+			return y;
+		}
 
         public function draw(timeDelta:int):void {
 			for (var i:int = numChildren - 1; i > 0; i--) {

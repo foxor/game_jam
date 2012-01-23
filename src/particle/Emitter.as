@@ -20,6 +20,8 @@ package particle
 		{
 			if (velocity == null) {
 				this.velocity = new Point(0, 0);
+			} else {
+				this.velocity = velocity;
 			}
 			this._myParticle = particle;
 			this.numParticles = numParticles;
@@ -41,7 +43,7 @@ package particle
 				var newVelocity:Point = velocity.clone();
 				newVelocity.x += ((Math.random() + Math.random() - 1) * radius) / speed;
 				newVelocity.y += ((Math.random() + Math.random() - 1) * radius) / speed;
-				myParticle.setup(parent.x, parent.y, newVelocity, radius / speed);
+				myParticle.setup(totalX, totalY, newVelocity, radius / speed);
 			}
 			if (timeLeft <= 0) {
 				parent.removeChild(this);
