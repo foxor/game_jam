@@ -1,5 +1,7 @@
 package screens {
 
+    import battle.Mech;
+    
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.geom.Point;
@@ -7,7 +9,7 @@ package screens {
     import gameobjects.GameObject;
     import gameobjects.GameObjectManager;
     
-    import battle.Mech;
+    import particle.Explosion;
     
     public class BattleScreen extends Screen {
         
@@ -56,6 +58,7 @@ package screens {
             trace("mouseDown", evt.stageX, evt.stageY, evt.localX, evt.localY);
             if (_activeMech) {
                 _activeMech.target = new Point(evt.localX, evt.localY);
+				_activeMech.addChild(new Explosion());
             }
         }
         

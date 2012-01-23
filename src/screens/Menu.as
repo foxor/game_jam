@@ -82,7 +82,9 @@ package screens
 			for (var i:int = 0; i < responsibilities.length; i++) {
 				GameObjectManager.singleton.removeChild(responsibilities[i]);
 			}
-			parent.removeChild(this);
+			if (parent) {
+				parent.removeChild(this);
+			}
 		}
 	}
 }
