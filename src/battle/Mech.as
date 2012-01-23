@@ -24,6 +24,7 @@ package battle {
             _owner = owner;
             _sortOrder = 100;
             addChild(new Circle());
+			fb_loader.load(this);
         }
 
         override public function onAdd():void {
