@@ -17,6 +17,9 @@ package screens {
         public static const MAX_WIDTH:int = 1000;
         public static const MAX_HEIGHT:int = 1000;
 
+        public static const PLAYER_TEAM:String = "player_team";
+        public static const ENEMY_TEAM:String = "enemy_team";
+        
         private var _activeMech:Mech;
         private var _background:GameObject;
 
@@ -35,11 +38,12 @@ package screens {
             _background.graphics.endFill();
             GameObjectManager.singleton.addChild(_background);
 
-            var team:Team = new Team("PLAYER_TEAM");
+            var team:Team = new Team(PLAYER_TEAM);
             var startingX:int = 10;
             var startingY:int = 10;
             for (var i:int = 0; i < 4; i++) {
                 var mech:Mech = new Mech(this);
+                mech.teamId = PLAYER_TEAM;
                 GameObjectManager.singleton.addChild(mech);
                 mech.setPosition(startingX, startingY);
                 startingY += 200;
@@ -47,20 +51,21 @@ package screens {
             }
             addTeam(team, true);
 
-            var enemies:Team = new Team("ENEMY_TEAM");
+            var enemies:Team = new Team(ENEMY_TEAM);
             startingX = 900;
             startingY = 10;
             for (i = 0; i < 4; i++) {
                 mech = new Mech(this);
+                mech.teamId = ENEMY_TEAM;
                 GameObjectManager.singleton.addChild(mech);
                 mech.setPosition(startingX, startingY);
                 startingY += 200;
-                team.addMech(mech);
+                enemies.addMech(mech);
             }
             addTeam(enemies, false);
             
-            _background.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
-            _background.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+            GameObjectManager.singleton.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
+            GameObjectManager.singleton.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
         }
         
         override public function shutDown():void {
@@ -75,6 +80,7 @@ package screens {
         }
         
         public function mouseUpHandler(evt:MouseEvent):void {
+            trace("mouseUp", evt.stageX, evt.stageY, evt.localX, evt.localY);
             // check if the player clicked on one of his mechs
             if (_teams[playerTeamId]) {
                 for each (var mech:Mech in _teams[playerTeamId].mechs) {
@@ -90,7 +96,7 @@ package screens {
             
             // move the selected mech to that location
             if (_activeMech) {
-                _activeMech.moveTo(evt.localX, evt.localY);
+                _activeMech.moveTo(evt.stageX, evt.stageY);
                 _activeMech.addChild(new Explosion());
             }
         }

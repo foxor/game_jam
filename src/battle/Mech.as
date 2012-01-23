@@ -52,7 +52,7 @@ package battle {
         }
         
         public function set teamId(val:String):void {
-            _teamId = teamId;
+            _teamId = val;
         }
 
         public function get teamId():String {
