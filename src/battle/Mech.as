@@ -2,14 +2,16 @@ package battle {
 
     import flash.display.Sprite;
     import flash.events.MouseEvent;
-    import flash.geom.Point;
     
-    import gameobjects.GameObjectManager;
+    import game.Game;
+    
     import gameobjects.MovingGameObject;
+    import gameobjects.GameObjectManager;
     
     import particle.Circle;
     import particle.Explosion;
     
+    import physics.MovingBody;
     import physics.PhysicsBody;
     import physics.PhysicsManager;
     
@@ -20,9 +22,9 @@ package battle {
         private var _teamId:String;
         private var _owner:BattleScreen;
         private var _selectionHighlight:Sprite;
-        private var _body:PhysicsBody;
         
         public function Mech(owner:BattleScreen) {
+            super();
             _owner = owner;
             _sortOrder = 100;
             addChild(new Circle());

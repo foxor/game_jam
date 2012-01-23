@@ -34,6 +34,30 @@ package screens {
             _background.graphics.drawRect(0, 0, 1000, 1000);
             _background.graphics.endFill();
             GameObjectManager.singleton.addChild(_background);
+
+            var team:Team = new Team("PLAYER_TEAM");
+            var startingX:int = 10;
+            var startingY:int = 10;
+            for (var i:int = 0; i < 4; i++) {
+                var mech:Mech = new Mech(this);
+                GameObjectManager.singleton.addChild(mech);
+                mech.setPosition(startingX, startingY);
+                startingY += 200;
+                team.addMech(mech);
+            }
+            addTeam(team, true);
+
+            var enemies:Team = new Team("ENEMY_TEAM");
+            startingX = 900;
+            startingY = 10;
+            for (i = 0; i < 4; i++) {
+                mech = new Mech(this);
+                GameObjectManager.singleton.addChild(mech);
+                mech.setPosition(startingX, startingY);
+                startingY += 200;
+                team.addMech(mech);
+            }
+            addTeam(enemies, false);
             
             _background.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
             _background.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
@@ -66,7 +90,7 @@ package screens {
             
             // move the selected mech to that location
             if (_activeMech) {
-                _activeMech.target = new Point(evt.localX, evt.localY);
+                _activeMech.moveTo(evt.localX, evt.localY);
                 _activeMech.addChild(new Explosion());
             }
         }

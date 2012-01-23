@@ -1,16 +1,17 @@
 package screens
 {
+	import battle.Team;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	
-    import gameobjects.GameObject;
-    import gameobjects.GameObjectManager;
-
-    import game.Game;
-    import game.Game;
+	import game.Game;
+	
+	import gameobjects.GameObject;
+	import gameobjects.GameObjectManager;
     
 	public class Menu extends Screen
 	{

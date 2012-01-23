@@ -3,10 +3,10 @@ package physics {
     
     public class PhysicsBody {
         
-        private var _collisionGroup:int;
-        private var _position:Vector3D;
-        private var _width:int;
-        private var _height:int;
+        protected var _collisionGroup:int;
+        protected var _position:Vector3D;
+        protected var _width:int;
+        protected var _height:int;
         
         public function PhysicsBody(collisionGroup:int) {
             _collisionGroup = collisionGroup;
