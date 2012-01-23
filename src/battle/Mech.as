@@ -32,7 +32,6 @@ package battle {
             addChild(new Circle());
 			fb_loader.load(this);
 			PhysicsManager.singleton.addBody(_range = new MechRange(this));
-			this.addChild(new Explosion());
         }
 
         override public function onAdd():void {

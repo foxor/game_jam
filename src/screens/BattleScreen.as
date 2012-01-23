@@ -97,7 +97,6 @@ package screens {
             // move the selected mech to that location
             if (_activeMech) {
                 _activeMech.moveTo(evt.stageX, evt.stageY);
-                _activeMech.addChild(new Explosion());
             }
         }
         
