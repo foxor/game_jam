@@ -4,6 +4,9 @@ package screens
 	import flash.events.MouseEvent;
 	import flash.external.ExternalInterface;
 	
+
+    import game.Game;
+    
 	import gameobjects.GameObject;
 	import gameobjects.GameObjectManager;
 

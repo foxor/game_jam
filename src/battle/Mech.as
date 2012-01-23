@@ -16,6 +16,7 @@ package battle {
     
     public class Mech extends MovingGameObject {
         
+        private var _teamId:String;
         private var _owner:BattleScreen;
         private var _selectionHighlight:Sprite;
         private var _body:PhysicsBody;
@@ -28,26 +29,11 @@ package battle {
         }
 
         override public function onAdd():void {
-            GameObjectManager.singleton.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
-            GameObjectManager.singleton.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+
         }
         
         override public function onRemove():void {
-            GameObjectManager.singleton.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-            GameObjectManager.singleton.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-        }
-        
-        public function mouseDownHandler(evt:MouseEvent):void {
-            trace("mouseDown");
-            if (insideBounds(evt.stageX, evt.stageY)) {
-                if (_owner) {
-                    _owner.activeMech = this;
-                }
-            }
-        }
-        
-        public function mouseUpHandler(evt:MouseEvent):void {
-            trace("mouseUp");
+
         }
         
         public function insideBounds(targetX:int, targetY:int):Boolean {
@@ -61,6 +47,14 @@ package battle {
 
         public function removeSelectionHighlight():void {
             removeChild(_selectionHighlight);
+        }
+        
+        public function set teamId(val:String):void {
+            _teamId = teamId;
+        }
+
+        public function get teamId():String {
+            return _teamId;
         }
     }
 }

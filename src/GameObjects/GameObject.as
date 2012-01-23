@@ -5,9 +5,10 @@ package gameobjects {
     public class GameObject extends Sprite {
         
         protected var _sortOrder:int = int.MAX_VALUE;
+        private var _guid:int;
         
         public function GameObject() {
-            
+            _guid = GameObjectManager.singleton.guid;
         }
 
         public function onAdd():void {
@@ -54,6 +55,10 @@ package gameobjects {
 
         public function set sortOrder(val:int):void {
             _sortOrder = val;
+        }
+
+        public function get guid():int {
+            return _guid;
         }
     }
 }

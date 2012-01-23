@@ -117,6 +117,7 @@ package physics {
         }
 
         public function addCollisionPair(groupA:int, groupB:int):void {
+            // check we don't already have this pair
             for each (var pair:Array in _collisionPairs) {
                 if ((pair[0] == groupA && pair[1] == groupB) || (pair[0] == groupB && pair[1] == groupA)) {
                     trace("[PhysicsManager] Warning, ignoring attempt to add duplicate pair", groupA, groupB);
@@ -124,6 +125,13 @@ package physics {
                 }
             }
             _collisionPairs.push([groupA, groupB]);
+            // Initialise body groups
+            if (!_bodyGroups[groupA]) {
+                _bodyGroups[groupA] = new Array();
+            }
+            if (!_bodyGroups[groupB]) {
+                _bodyGroups[groupB] = new Array();
+            }
         }
     }
 }

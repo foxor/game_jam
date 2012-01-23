@@ -1,6 +1,7 @@
 package screens {
 
     import battle.Mech;
+    import battle.Team;
     
     import flash.display.Sprite;
     import flash.events.MouseEvent;
@@ -17,11 +18,13 @@ package screens {
         public static const MAX_HEIGHT:int = 1000;
 
         private var _activeMech:Mech;
-        private var _mechs:Array;
         private var _background:GameObject;
-        
+
+        private var _teams:Object;
+        private var _playerTeamId:String;
+
         public function BattleScreen() {
-            _mechs = new Array();
+            _teams = new Object();
         }
         
         override public function initialize():void {
@@ -32,41 +35,44 @@ package screens {
             _background.graphics.endFill();
             GameObjectManager.singleton.addChild(_background);
             
-            for (var i:int = 0; i < 10; i++) {
-                var mech:Mech = new Mech(this);
-                GameObjectManager.singleton.addChild(mech);
-                mech.x += Math.random() * MAX_WIDTH;
-                mech.y += Math.random() * MAX_HEIGHT;
-                _mechs.push(mech);
-            }
-            
-            GameObjectManager.singleton.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
-            GameObjectManager.singleton.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+            _background.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
+            _background.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
         }
         
         override public function shutDown():void {
             GameObjectManager.singleton.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-            GameObjectManager.singleton.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+            GameObjectManager.singleton.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
         
-            for each (var mech:Mech in _mechs) {
-                GameObjectManager.singleton.removeChild(mech);
-            }
             GameObjectManager.singleton.removeChild(_background);
         }
         
         public function mouseDownHandler(evt:MouseEvent):void {
             trace("mouseDown", evt.stageX, evt.stageY, evt.localX, evt.localY);
-            if (_activeMech) {
-                _activeMech.target = new Point(evt.localX, evt.localY);
-				_activeMech.addChild(new Explosion());
-            }
         }
         
         public function mouseUpHandler(evt:MouseEvent):void {
-            trace("mouseUp", evt.stageX, evt.stageY, evt.localX, evt.localY);
+            // check if the player clicked on one of his mechs
+            if (_teams[playerTeamId]) {
+                for each (var mech:Mech in _teams[playerTeamId].mechs) {
+                    if ((evt.stageX > mech.x && evt.stageX < mech.x + mech.width) 
+                    && (evt.stageY > mech.y && evt.stageY < mech.y + mech.height)) {
+                        if (mech.teamId == playerTeamId) {
+                            activeMech = mech;
+                            return;
+                        }
+                    }
+                }
+            }
+            
+            // move the selected mech to that location
+            if (_activeMech) {
+                _activeMech.target = new Point(evt.localX, evt.localY);
+                _activeMech.addChild(new Explosion());
+            }
         }
         
         public function set activeMech(val:Mech):void {
+            trace("setting activeMech:", val.guid);
             if (_activeMech) {
                 _activeMech.removeSelectionHighlight();
             }
@@ -76,6 +82,21 @@ package screens {
 
         public function get activeMech():Mech {
             return _activeMech;
+        }
+        
+        public function addTeam(team:Team, isPlayerTeam:Boolean = false):void {
+            _teams[team.teamId] = team;           
+            if (isPlayerTeam) {
+                if (_playerTeamId) {
+                    throw new Error("[BattleScreen] Player team already set:" + _playerTeamId);
+                } else {
+                    _playerTeamId = team.teamId;
+                }
+            }
+        }
+        
+        public function get playerTeamId():String {
+            return _playerTeamId;
         }
     }
 }

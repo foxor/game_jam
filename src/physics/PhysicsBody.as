@@ -5,6 +5,8 @@ package physics {
         
         private var _collisionGroup:int;
         private var _position:Vector3D;
+        private var _width:int;
+        private var _height:int;
         
         public function PhysicsBody(collisionGroup:int) {
             _collisionGroup = collisionGroup;
@@ -16,11 +18,26 @@ package physics {
         }
 
         public function collision(target:PhysicsBody):void {
-            
+        }
+                
+        public function get width():int {
+            return _width;
+        }
+        
+        public function set width(val:int):void {
+            _width = val;
+        }
+        
+        public function get height():int {
+            return _height;
+        }
+        
+        public function set height(val:int):void {
+            _height = val;
         }
         
         public function collides(target:PhysicsBody):Boolean {
-            return false;
+            return ((position.x + width > target.position.x) && (position.x < target.position.x + target.width)) && ((position.y + height > target.position.y) && (position.y < target.position.y + target.height));
         }
         
         public function get collisionGroup():int {
