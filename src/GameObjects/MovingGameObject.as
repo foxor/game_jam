@@ -4,6 +4,7 @@ package gameobjects {
 
     import game.Game;
     import physics.MovingBody;
+    import physics.PhysicsManager;
     
     public class MovingGameObject extends GameObject {
         
@@ -11,6 +12,7 @@ package gameobjects {
 
         public function MovingGameObject() {
             _body = new MovingBody(Game.COLLISION_MECHS);
+            PhysicsManager.singleton.addBody(_body);
         }
         
         override public function process(timeDelta:int):void {

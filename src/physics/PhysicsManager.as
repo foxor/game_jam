@@ -65,7 +65,7 @@ package physics {
                     if (numBodies > 1) {
                         for (var i:int = 0; i < numBodies - 1; i++) {
                             bodyA = _bodyGroups[groupA][i];
-                            for (var j:int = i + 1; i < numBodies; j++) {
+                            for (var j:int = i + 1; j < numBodies; j++) {
                                 bodyB = _bodyGroups[groupB][j]
                                 if (bodyA.collides(bodyB)) {
                                     bodyA.collision(bodyB);
