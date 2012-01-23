@@ -16,7 +16,8 @@ package particle
 				return;
 			}
 			emitters = [];
-			emitters.push(new FactoryEmitter(Particle.particleFactory(), 100, 20, 10, null, 60, 3));
+			emitters.push(new FactoryEmitter(Particle.particleFactory(0xFF6310, 10), 100, 80, 10, null, 20, 4));
+			emitters.push(new FactoryEmitter(Particle.particleFactory(0xCF8330, 30), 100, 40, 30, null, 60, 2));
 			emitters.push(new FactoryEmitter(Particle.particleFactory(0xFF6310, 10), 100, 80, 10, null, 20, 4));
 			setup = true;
 		}

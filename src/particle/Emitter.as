@@ -20,6 +20,8 @@ package particle
 		{
 			if (velocity == null) {
 				this.velocity = new Point(0, 0);
+			} else {
+				this.velocity = velocity;
 			}
 			this._myParticle = particle;
 			this.numParticles = numParticles;
