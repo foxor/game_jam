@@ -31,9 +31,8 @@ package particle
 		}
 		
 		override public function removeChild(child:DisplayObject):DisplayObject {
-			if (--children > 1 && parent) {
-				parent.visible = false;
-				parent.removeChild(this);
+			if (--children > 1 && parent && parent.parent) {
+				parent.parent.removeChild(parent);
 			}
 			return super.removeChild(child);
 		}
