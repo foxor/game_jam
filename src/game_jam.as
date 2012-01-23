@@ -1,11 +1,15 @@
 package
 {
+    
     import flash.display.Sprite;
     import flash.events.Event;
     import flash.text.TextField;
     import flash.utils.getTimer;
-
+    
+    import gameobjects.GameObjectManager;
+    
     import screens.BattleScreen;
+    import screens.Loadout;
     import screens.Mission;
     import screens.Screen;
 
@@ -36,7 +40,7 @@ package
             
             addEventListener(Event.ENTER_FRAME, onFrameEnter);
             addEventListener(Event.EXIT_FRAME, onFrameExit);
-			GameObjectManager.singleton.swapScreen(new Mission());
+			GameObjectManager.singleton.swapScreen(new Loadout());
 		}
         
         private function setupFPS():void {
