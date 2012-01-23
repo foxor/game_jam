@@ -1,23 +1,24 @@
 package battle {
 
-    import gameobjects.GameObjectManager;
-    import gameobjects.MovingGameObject;
-    
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.geom.Point;
     
+    import gameobjects.GameObjectManager;
+    import gameobjects.MovingGameObject;
+    
     import particle.Circle;
     import particle.Explosion;
     
+    import physics.PhysicsBody;
+    
     import screens.BattleScreen;
-	
-	import particle.Circle;
     
     public class Mech extends MovingGameObject {
         
         private var _owner:BattleScreen;
         private var _selectionHighlight:Sprite;
+        private var _body:PhysicsBody;
         
         public function Mech(owner:BattleScreen) {
             _owner = owner;
