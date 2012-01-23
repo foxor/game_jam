@@ -67,7 +67,7 @@ package physics {
                             bodyA = _bodyGroups[groupA][i];
                             for (var j:int = i + 1; i < numBodies; j++) {
                                 bodyB = _bodyGroups[groupB][j]
-                                if (collides(bodyA, bodyB)) {
+                                if (bodyA.collides(bodyB)) {
                                     bodyA.collision(bodyB);
                                     bodyB.collision(bodyA);
                                 }
@@ -77,7 +77,7 @@ package physics {
                 } else {
                     for each (bodyA in _bodyGroups[groupA]) {
                         for each (bodyB in _bodyGroups[groupB]) {
-                            if (collides(bodyA, bodyB)) {
+                            if (bodyA.collides(bodyB)) {
                                 bodyA.collision(bodyB);
                                 bodyB.collision(bodyA);
                             }
@@ -86,23 +86,7 @@ package physics {
                 }
             }
         }
-        
-        public function checkCollisions(source:PhysicsBody):void {
-            for each (var collisionGroup:String in _collisionGroups[source.collisionGroup]) {
-                for each (var potentialCollider:PhysicsBody in _bodyGroups[collisionGroup]) {
-                    if (source != potentialCollider) {
-                        if (collides(source, potentialCollider)) {
-                            source.collision(potentialCollider);
-                        }
-                    }
-                }
-            }
-        }
-        
-        public function collides(bodyA:PhysicsBody, bodyB:PhysicsBody):Boolean {
-            return false;
-        }
-
+                
         public function addBody(body:PhysicsBody):void {
             // prep the body for adding (done post update)
             _bodiesToAdd.push(body);
