@@ -8,6 +8,9 @@ package screens
 	
     import gameobjects.GameObject;
     import gameobjects.GameObjectManager;
+
+    import game.Game;
+    import game.Game;
     
 	public class Menu extends Screen
 	{
@@ -75,7 +78,7 @@ package screens
 		}
 		
 		protected function onClick(btnName:String):void {
-			GameObjectManager.singleton.swapScreen(new BattleScreen());
+			Game.singleton.swapScreen(new BattleScreen());
 		}
 		
 		override public function shutDown():void {

@@ -15,6 +15,7 @@ package
 
     import gameobjects.GameObjectManager;
     import physics.PhysicsManager;
+    import game.Game;
     
     [SWF(width="1000", height="1000", frameRate="60", backgroundColor="0x777777")]
     
@@ -32,7 +33,9 @@ package
 
             GameObjectManager.singleton.initialise();
             PhysicsManager.singleton.initialise();
-            
+            Game.singleton.initialise();
+            stage.addChild(Game.singleton);
+                        
 			//fb_loader.load(stage);
             stage.addChild(GameObjectManager.singleton);
 
@@ -40,7 +43,7 @@ package
             
             addEventListener(Event.ENTER_FRAME, onFrameEnter);
             addEventListener(Event.EXIT_FRAME, onFrameExit);
-			GameObjectManager.singleton.swapScreen(new Loadout());
+			Game.singleton.swapScreen(new Loadout());
 		}
         
         private function setupFPS():void {

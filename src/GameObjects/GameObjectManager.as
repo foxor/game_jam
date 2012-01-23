@@ -3,16 +3,16 @@ package gameobjects {
     import flash.display.DisplayObject;
     import flash.display.Sprite;
     import flash.events.EventDispatcher;
-
+    
     import screens.Screen;
     
     public class GameObjectManager extends Sprite {
         
         private static var _instance:GameObjectManager;
-        
-        protected var _currentScreen:Screen;
+        private var _guid:int;
         
         public function GameObjectManager() {
+            _guid = 0;
         }
         
         public static function get singleton():GameObjectManager {
@@ -58,13 +58,8 @@ package gameobjects {
             }
         }
 
-        public function swapScreen(screen:Screen):void {
-            if (_currentScreen) {
-                _currentScreen.shutDown();
-            }
-            _currentScreen = screen;
-            stage.addChild(_currentScreen);
-            _currentScreen.initialize();
+        public function get guid():int {
+            return _guid++;
         }
     }
 }

@@ -2,7 +2,9 @@ package screens
 {
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
-	
+
+    import game.Game;
+    
 	import gameobjects.GameObject;
 	import gameobjects.GameObjectManager;
 
@@ -24,7 +26,7 @@ package screens
 			button.graphics.drawRect(width - 80, height - 40, 70, 30);
 			button.graphics.endFill();
 			button.addEventListener(MouseEvent.CLICK, function (e:MouseEvent):void {
-				GameObjectManager.singleton.swapScreen(new Mission());
+				Game.singleton.swapScreen(new Mission());
 			});
 			var container:GameObject = new GameObject();
 			container.x = left;
