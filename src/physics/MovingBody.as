@@ -3,6 +3,8 @@ package physics {
     import flash.geom.Point;
     import flash.geom.Vector3D;
     
+    import gameobjects.GameObject;
+    
     public class MovingBody extends PhysicsBody {
         
         public var velocity:Vector3D;
@@ -10,8 +12,8 @@ package physics {
         
         private var _target:Vector3D;
         
-        public function MovingBody(collisionGroup:int) {
-            super(collisionGroup);
+        public function MovingBody(collisionGroup:int, gameObject:GameObject=null) {
+            super(collisionGroup, gameObject);
         }
         
         override public function update(dt:int):void {
@@ -19,12 +21,10 @@ package physics {
                 var deltaX:int = _target.x - _position.x;
                 var deltaY:int = _target.y - _position.y;
                 if ((deltaX < speed && deltaX > -speed) && (deltaY < speed && deltaY > -speed)) {
-                    _position.x = _target.x;
-                    _position.y = _target.y;
+                    position = new Vector3D(_target.x, _target.y);
                     _target = null;
                 } else {
-                    _position.x += velocity.x;
-                    _position.y += velocity.y;
+					position = new Vector3D(_position.x + velocity.x, _position.y + velocity.y);
                 }
             }            
             super.update(dt);

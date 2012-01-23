@@ -31,11 +31,11 @@ package particle
 		}
 		
 		override public function removeChild(child:DisplayObject):DisplayObject {
-			super.removeChild(child);
 			if (!--children && parent) {
 				parent.removeChild(this);
+				parent.visible = false;
 			}
-			return child;
+			return super.removeChild(child);
 		}
 		
 		override public function process(td:int):void {

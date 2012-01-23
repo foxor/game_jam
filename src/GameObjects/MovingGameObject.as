@@ -11,13 +11,14 @@ package gameobjects {
         private var _body:MovingBody;
 
         public function MovingGameObject() {
-            _body = new MovingBody(Game.COLLISION_MECHS);
+            _body = new MovingBody(Game.COLLISION_MECHS, this);
             PhysicsManager.singleton.addBody(_body);
         }
         
         override public function process(timeDelta:int):void {
             x = _body.position.x; 
             y = _body.position.y; 
+			super.process(timeDelta);
         }
 
         public function moveTo(x:int ,y:int , z:int = 0):void {

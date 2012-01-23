@@ -4,12 +4,13 @@ package battle
 	
 	import game.Game;
 	
+	import physics.MovingBody;
 	import physics.PhysicsBody;
 	
-	public class MechRange extends PhysicsBody
+	public class MechRange extends MovingBody
 	{
 		private var mech:Mech;
-		public function MechRange(mech:Mech, range:int=2000)
+		public function MechRange(mech:Mech, range:int=200)
 		{
 			super(Game.COLLISION_MECH_RANGE);
 			this.mech = mech;
@@ -19,9 +20,17 @@ package battle
 		}
 		
 		override public function collision(target:PhysicsBody):void {
-			if (target is Mech) {
-				mech.fireAt(target as Mech);
+			if (target.collisionGroup == Game.COLLISION_MECHS && (target.gameObject as Mech).teamId != this.mech.teamId) {
+				mech.fireAt(target.gameObject as Mech);
 			}
+		}
+		
+		public function moveTo(x:int ,y:int , z:int = 0):void {
+			target = new Vector3D(x, y, z);
+		}
+		
+		public function setPosition(x:int ,y:int , z:int = 0):void {
+			position = new Vector3D(x, y, z);
 		}
 	}
 }

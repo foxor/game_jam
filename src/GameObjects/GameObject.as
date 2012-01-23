@@ -1,6 +1,7 @@
 package gameobjects {
     
     import flash.display.Sprite;
+    import flash.geom.Vector3D;
     
     public class GameObject extends Sprite {
         
@@ -60,5 +61,8 @@ package gameobjects {
         public function get guid():int {
             return _guid;
         }
+		
+		public function notifyMove(val:Vector3D):void {
+		}
     }
 }

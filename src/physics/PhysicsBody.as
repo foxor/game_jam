@@ -2,16 +2,21 @@ package physics {
     import flash.geom.Point;
     import flash.geom.Vector3D;
     
+    import gameobjects.GameObject;
+    
     public class PhysicsBody {
         
         protected var _collisionGroup:int;
         protected var _position:Vector3D;
         protected var _width:int;
         protected var _height:int;
+		
+		public var gameObject:GameObject;
         
-        public function PhysicsBody(collisionGroup:int) {
+        public function PhysicsBody(collisionGroup:int, gameObject:GameObject=null) {
             _collisionGroup = collisionGroup;
             _position = new Vector3D();
+			this.gameObject = gameObject;
         }
         
         public function update(dt:int):void {
@@ -49,6 +54,9 @@ package physics {
             _position.x = val.x;
             _position.y = val.y;
             _position.z = val.z;
+			if (gameObject) {
+				gameObject.notifyMove(val);
+			}
         }
 		
 		public function copyPoint(x:int, y:int, z:int=0):void {

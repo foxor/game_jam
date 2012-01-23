@@ -2,11 +2,12 @@ package battle {
 
     import flash.display.Sprite;
     import flash.events.MouseEvent;
+    import flash.geom.Vector3D;
     
     import game.Game;
     
-    import gameobjects.MovingGameObject;
     import gameobjects.GameObjectManager;
+    import gameobjects.MovingGameObject;
     
     import particle.Circle;
     import particle.Explosion;
@@ -22,6 +23,7 @@ package battle {
         private var _teamId:String;
         private var _owner:BattleScreen;
         private var _selectionHighlight:Sprite;
+		private var _range:MechRange;
         
         public function Mech(owner:BattleScreen) {
             super();
@@ -29,7 +31,8 @@ package battle {
             _sortOrder = 100;
             addChild(new Circle());
 			fb_loader.load(this);
-			PhysicsManager.singleton.addBody(new MechRange(this));
+			PhysicsManager.singleton.addBody(_range = new MechRange(this));
+			this.addChild(new Explosion());
         }
 
         override public function onAdd():void {
@@ -42,7 +45,6 @@ package battle {
 		
 		public function fireAt(opponent:Mech):void {
 			opponent.addChild(new Explosion());
-			opponent.visible = false;
 		}
         
         public function insideBounds(targetX:int, targetY:int):Boolean {
@@ -65,5 +67,9 @@ package battle {
         public function get teamId():String {
             return _teamId;
         }
+		
+		override public function notifyMove(val:Vector3D):void {
+			_range.position = val;
+		}
     }
 }
