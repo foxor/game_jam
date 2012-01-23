@@ -1,45 +1,29 @@
 package gameobjects {
     
-    import flash.geom.Point;
     import flash.geom.Vector3D;
+
+    import game.Game;
+    import physics.MovingBody;
     
     public class MovingGameObject extends GameObject {
         
-        public var velocity:Vector3D;
-        public var speed:int = 5;
-        
-        private var _target:Point;
-        
+        private var _body:MovingBody;
+
         public function MovingGameObject() {
-            
+            _body = new MovingBody(Game.COLLISION_MECHS);
         }
         
         override public function process(timeDelta:int):void {
-            if (_target) {
-                var deltaX:int = _target.x - x;
-                var deltaY:int = _target.y - y;
-                if ((deltaX < speed && deltaX > -speed) && (deltaY < speed && deltaY > -speed)) {
-                    x = _target.x;
-                    y = _target.y;
-                    _target = null;
-                } else {
-                    x += velocity.x;
-                    y += velocity.y;
-                }
-            }            
-            super.process(timeDelta);
+            x = _body.position.x; 
+            y = _body.position.y; 
+        }
+
+        public function moveTo(x:int ,y:int , z:int = 0):void {
+            _body.target = new Vector3D(x, y, z);
         }
         
-        public function set target(val:Point):void {
-            _target = val;
-            velocity = new Vector3D((val.x - x), (val.y - y), 0);
-            velocity.normalize();
-            velocity.x *= speed;
-            velocity.y *= speed;
-        }
-        
-        public function get target():Point {
-            return _target;
+        public function setPosition(x:int ,y:int , z:int = 0):void {
+            _body.position = new Vector3D(x, y, z);
         }
     }
 }
