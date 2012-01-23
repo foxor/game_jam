@@ -4,9 +4,8 @@ package screens
 	import flash.events.MouseEvent;
 	import flash.external.ExternalInterface;
 	
-
-    import game.Game;
-    
+	import game.Game;
+	
 	import gameobjects.GameObject;
 	import gameobjects.GameObjectManager;
 
@@ -28,11 +27,11 @@ package screens
 			button.graphics.drawRect(width - 80, height - 40, 70, 30);
 			button.graphics.endFill();
 			ExternalInterface.addCallback("authAs3", function ():void {
-				GameObjectManager.singleton.swapScreen(new Mission());
+				Game.singleton.swapScreen(new Mission());
 			});
 			button.addEventListener(MouseEvent.CLICK, function (e:MouseEvent):void {
 				if (ExternalInterface.call("authJs") == null) {
-					GameObjectManager.singleton.swapScreen(new Mission());
+					Game.singleton.swapScreen(new Mission());
 				}
 			});
 			var container:GameObject = new GameObject();
