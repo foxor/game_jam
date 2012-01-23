@@ -11,11 +11,5 @@ package particle
 			this.graphics.endFill();
 			super();
 		}
-		
-		public static function circleFactory(color:Number=0xFF794B, radius:Number=15):Function {
-			return function():Circle {
-				return new Circle(color, radius);
-			}
-		}
 	}
 }

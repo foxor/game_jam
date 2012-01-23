@@ -24,7 +24,6 @@ package battle {
             _owner = owner;
             _sortOrder = 100;
             addChild(new Circle());
-			addChild(new Explosion());
         }
 
         override public function onAdd():void {

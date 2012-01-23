@@ -39,9 +39,9 @@ package particle
 			var toFire:int = (numParticles * (totalTime - timeLeft)) / totalTime - particlesFired;
 			for (; toFire > 0; toFire--) {
 				var newVelocity:Point = velocity.clone();
-				newVelocity.x += ((Math.random() * 2 - 1) * radius) / speed;
-				newVelocity.y += ((Math.random() * 2 - 1) * radius) / speed;
-				GameObjectManager.singleton.addChild(new Particle(myParticle, newVelocity, radius / speed));
+				newVelocity.x += ((Math.random() + Math.random() - 1) * radius) / speed;
+				newVelocity.y += ((Math.random() + Math.random() - 1) * radius) / speed;
+				myParticle.setup(parent.x, parent.y, newVelocity, radius / speed);
 			}
 			if (timeLeft <= 0) {
 				parent.removeChild(this);
