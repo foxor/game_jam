@@ -4,7 +4,7 @@ package physics {
         
         private static var _instance:PhysicsManager;
 
-        private var _collisionGroups:Object;
+        private var _collisionPairs:Array;
 
         private var _bodyGroups:Object;
         private var _bodiesToAdd:Array;
@@ -21,14 +21,14 @@ package physics {
         }
         
         public function initialise():void {
-            _collisionGroups = new Object();
+            _collisionPairs = new Array();
             _bodyGroups = new Object();
             _bodiesToAdd = new Array();
             _bodiesToRemove = new Array();
         }
         
         public function shutdown():void {
-            _collisionGroups = null;
+            _collisionPairs = null;
             _bodyGroups = null;
             _bodiesToAdd = null;
             _bodiesToRemove = null;
@@ -54,9 +54,35 @@ package physics {
             }
 
             // check any bodies are colliding
-            for (group in _bodyGroups) {
-                for each (body in _bodyGroups[group]) {
-                    checkCollisions(body);
+            var bodyA:PhysicsBody;
+            var bodyB:PhysicsBody;
+            for each (var pair:Array in _collisionPairs) {
+                var groupA:int = pair[0]; 
+                var groupB:int = pair[1]; 
+                if (groupA == groupB) {
+                    // prevent double checking bodies from the same group
+                    var numBodies:int = _bodyGroups[groupA].length;
+                    if (numBodies > 1) {
+                        for (var i:int = 0; i < numBodies - 1; i++) {
+                            bodyA = _bodyGroups[groupA][i];
+                            for (var j:int = i + 1; i < numBodies; j++) {
+                                bodyB = _bodyGroups[groupB][j]
+                                if (collides(bodyA, bodyB)) {
+                                    bodyA.collision(bodyB);
+                                    bodyB.collision(bodyA);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    for each (bodyA in _bodyGroups[groupA]) {
+                        for each (bodyB in _bodyGroups[groupB]) {
+                            if (collides(bodyA, bodyB)) {
+                                bodyA.collision(bodyB);
+                                bodyB.collision(bodyA);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -106,16 +132,14 @@ package physics {
             }
         }
 
-        public function addCollisionGroup(groupA:int, groupB:int):void {
-            if (!_collisionGroups[groupA]) {
-                _collisionGroups[groupA] = new Array();
+        public function addCollisionPair(groupA:int, groupB:int):void {
+            for each (var pair:Array in _collisionPairs) {
+                if ((pair[0] == groupA && pair[1] == groupB) || (pair[0] == groupB && pair[1] == groupA)) {
+                    trace("[PhysicsManager] Warning, ignoring attempt to add duplicate pair", groupA, groupB);
+                    return;
+                }
             }
-            _collisionGroups[groupA].push(groupB);
-
-            if (!_collisionGroups[groupB]) {
-                _collisionGroups[groupB] = new Array();
-            }
-            _collisionGroups[groupB].push(groupA);
+            _collisionPairs.push([groupA, groupB]);
         }
     }
 }
