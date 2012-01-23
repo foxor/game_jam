@@ -10,6 +10,7 @@ package game {
         
         public static const COLLISION_MECHS:int = 1;
         public static const COLLISION_WEAPONS:int = 2;
+		public static const COLLISION_MECH_RANGE:int = 3;
 
         protected var _currentScreen:Screen;
         
@@ -28,7 +29,8 @@ package game {
         
         public function initialise():void {
             PhysicsManager.singleton.addCollisionPair(COLLISION_MECHS, COLLISION_MECHS);
-            PhysicsManager.singleton.addCollisionPair(COLLISION_MECHS, COLLISION_WEAPONS);
+			PhysicsManager.singleton.addCollisionPair(COLLISION_MECHS, COLLISION_WEAPONS);
+			PhysicsManager.singleton.addCollisionPair(COLLISION_MECHS, COLLISION_MECH_RANGE);
         }
         
         public function swapScreen(screen:Screen):void {
