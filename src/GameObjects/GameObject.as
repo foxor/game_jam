@@ -3,9 +3,8 @@ package gameobjects {
     import flash.display.Sprite;
     import flash.geom.Vector3D;
     
-    public class GameObject extends Sprite {
+    public class GameObject extends GameView {
         
-        protected var _sortOrder:int = int.MAX_VALUE;
         private var _guid:int;
         
         public function GameObject() {
@@ -50,14 +49,6 @@ package gameobjects {
 			}
         }
         
-        public function get sortOrder():int {
-            return _sortOrder;
-        }
-
-        public function set sortOrder(val:int):void {
-            _sortOrder = val;
-        }
-
         public function get guid():int {
             return _guid;
         }

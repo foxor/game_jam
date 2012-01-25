@@ -1,18 +1,16 @@
 package gameobjects {
     
-    import flash.display.DisplayObject;
-    import flash.display.Sprite;
     import flash.events.EventDispatcher;
     
-    import screens.Screen;
-    
-    public class GameObjectManager extends Sprite {
+    public class GameObjectManager {
         
         private static var _instance:GameObjectManager;
         private var _guid:int;
+        private var _gameObjects:Vector.<GameObject>;
         
         public function GameObjectManager() {
             _guid = 0;
+            _gameObjects = new Vector.<GameObject>();
         }
         
         public static function get singleton():GameObjectManager {
@@ -25,35 +23,29 @@ package gameobjects {
         public function initialise():void {
         }
         
-        override public function addChild(child:DisplayObject):DisplayObject {
-            var gObject:GameObject = child as GameObject;
-            for (var i:int = 0; i < numChildren; i++) {
-                var existingChild:GameObject = getChildAt(i) as GameObject;
-                if (existingChild.sortOrder >= gObject.sortOrder) {
-                    break;
-                }
-            }
-            addChildAt(gObject, i);
-            gObject.onAdd();
+        public function addGameObject(child:GameObject):GameObject {
+            _gameObjects.push(child);
+            child.onAdd();
             return child;
         }
         
-        override public function removeChild(child:DisplayObject):DisplayObject {
-            super.removeChild(child);
-            (child as GameObject).onRemove();
+        public function removeGameObject(child:GameObject):GameObject {
+            var index:int = _gameObjects.indexOf(child);
+            if (index > 0) {
+                _gameObjects.splice(index,1);
+            }
+            child.onRemove();
             return child;
         }
         
         public function draw(frameDelta:int):void {
-            for (var i:int; i < numChildren; i++) {
-                var child:GameObject = getChildAt(i) as GameObject;
+            for each (var child:GameObject in _gameObjects) {
                 child.draw(frameDelta);
             }
         }
 
         public function process(frameDelta:int):void {
-            for (var i:int; i < numChildren; i++) {
-                var child:GameObject = getChildAt(i) as GameObject;
+            for each (var child:GameObject in _gameObjects) {
                 child.process(frameDelta);
             }
         }

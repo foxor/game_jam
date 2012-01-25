@@ -1,14 +1,15 @@
 package screens {
 
-    import battle.Mech;
-    import battle.Team;
-    
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.geom.Point;
     
+    import battle.Mech;
+    import battle.Team;
+    import game.Game;
     import gameobjects.GameObject;
     import gameobjects.GameObjectManager;
+    import gameobjects.GameView;
     
     import particle.Explosion;
     
@@ -21,7 +22,7 @@ package screens {
         public static const ENEMY_TEAM:String = "enemy_team";
         
         private var _activeMech:Mech;
-        private var _background:GameObject;
+        private var _background:GameView;
 
         private var _teams:Object;
         private var _playerTeamId:String;
@@ -31,12 +32,12 @@ package screens {
         }
         
         override public function initialize():void {
-            _background = new GameObject();
+            _background = new GameView();
             _background.sortOrder = 10;
-            _background.graphics.beginFill(0xCD853F);
+            _background.graphics.beginFill(0xD2B48C);
             _background.graphics.drawRect(0, 0, 1000, 1000);
             _background.graphics.endFill();
-            GameObjectManager.singleton.addChild(_background);
+            this.addChild(_background);
 
             var team:Team = new Team(PLAYER_TEAM);
             var startingX:int = 10;
@@ -44,7 +45,8 @@ package screens {
             for (var i:int = 0; i < 4; i++) {
                 var mech:Mech = new Mech(this);
                 mech.teamId = PLAYER_TEAM;
-                GameObjectManager.singleton.addChild(mech);
+                GameObjectManager.singleton.addGameObject(mech);
+                addChild(mech);
                 mech.setPosition(startingX, startingY);
                 startingY += 200;
                 team.addMech(mech);
@@ -57,22 +59,23 @@ package screens {
             for (i = 0; i < 4; i++) {
                 mech = new Mech(this);
                 mech.teamId = ENEMY_TEAM;
-                GameObjectManager.singleton.addChild(mech);
+                GameObjectManager.singleton.addGameObject(mech);
+                addChild(mech);
                 mech.setPosition(startingX, startingY);
                 startingY += 200;
                 enemies.addMech(mech);
             }
             addTeam(enemies, false);
             
-            GameObjectManager.singleton.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
-            GameObjectManager.singleton.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+            Game.singleton.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
+            Game.singleton.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
         }
         
         override public function shutDown():void {
-            GameObjectManager.singleton.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-            GameObjectManager.singleton.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+            Game.singleton.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+            Game.singleton.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
         
-            GameObjectManager.singleton.removeChild(_background);
+            this.removeChild(_background);
         }
         
         public function mouseDownHandler(evt:MouseEvent):void {

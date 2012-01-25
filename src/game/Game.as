@@ -36,6 +36,7 @@ package game {
         public function swapScreen(screen:Screen):void {
             if (_currentScreen) {
                 _currentScreen.shutDown();
+                stage.removeChild(_currentScreen);
             }
             _currentScreen = screen;
             stage.addChild(_currentScreen);

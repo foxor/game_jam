@@ -6,8 +6,7 @@ package screens
 	
 	import game.Game;
 	
-	import gameobjects.GameObject;
-	import gameobjects.GameObjectManager;
+	import gameobjects.GameView;
 
 	public class Ragdoll extends Menu
 	{
@@ -34,14 +33,13 @@ package screens
 					Game.singleton.swapScreen(new Mission());
 				}
 			});
-			var container:GameObject = new GameObject();
+			var container:GameView = new GameView();
 			container.x = left;
 			container.y = top;
 			container.addChild(bg);
 			container.addChild(ragdoll);
 			container.addChild(button);
 			this.responsibilities.push(container);
-			GameObjectManager.singleton.addChild(container);
 		}
 	}
 }

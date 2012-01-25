@@ -25,7 +25,7 @@ package particle
 			this.x = x;
 			this.y = y;
 			if (!inWorld) {
-				GameObjectManager.singleton.addChild(this);
+				GameObjectManager.singleton.addGameObject(this);
 				inWorld = true;
 			}
 		}
@@ -35,7 +35,8 @@ package particle
 			this.y += velocity.y;
 			this.lifeLeft -= 1;
 			if (this.lifeLeft < 0) {
-				GameObjectManager.singleton.removeChild(this);
+				GameObjectManager.singleton.removeGameObject(this);
+                parent.removeChild(this);
 				inWorld = false;
 			}
 		}

@@ -4,8 +4,7 @@ package screens
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	
-	import gameobjects.GameObject;
-	import gameobjects.GameObjectManager;
+	import gameobjects.GameView;
 
     public class Mission extends Menu
     {
@@ -33,13 +32,12 @@ package screens
 			difficulty.graphics.beginFill(color);
 			difficulty.graphics.drawCircle(25, 25, 5);
 			difficulty.graphics.endFill();
-			var option:GameObject = new GameObject();
+			var option:GameView = new GameView();
 			option.addChild(bg);
 			option.addChild(textField);
 			option.addChild(difficulty);
 			option.sortOrder = 100;
 			option.y = top;
-			GameObjectManager.singleton.addChild(option);
 			responsibilities.push(option);
 			top += 60;
 			option.addEventListener(MouseEvent.CLICK, function (e:MouseEvent):void {

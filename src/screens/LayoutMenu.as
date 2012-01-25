@@ -4,6 +4,7 @@ package screens
 	
 	import flash.display.Sprite;
 	
+	import gameobjects.GameObject;
 	import gameobjects.GameObjectManager;
 
 	public class LayoutMenu extends Menu
@@ -33,9 +34,11 @@ package screens
 			for (var i:int = 0; i < this.responsibilities.length; i++) {
 				if (this.responsibilities[i] is Screen) {
 					(this.responsibilities[i] as Screen).shutDown();
+				} else if (this.responsibilities[i] is GameObject) {
+					GameObjectManager.singleton.removeGameObject(this.responsibilities[i] as GameObject);
 				} else {
-					GameObjectManager.singleton.removeChild(this.responsibilities[i]);
-				}
+                    removeChild(this.responsibilities[i]);
+                }
 			}
 		}
 	}

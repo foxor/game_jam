@@ -3,8 +3,7 @@ package screens
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	
-	import gameobjects.GameObject;
-	import gameobjects.GameObjectManager;
+	import gameobjects.GameView;
 
 	public class ItemSingle extends Menu
 	{
@@ -20,14 +19,14 @@ package screens
 			textField.text = text;
 			textField.x = (width - textField.width) / 2;
 			textField.y = 20;
-			var item:GameObject = new GameObject();
+			var item:GameView = new GameView();
 			item.sortOrder = 100;
 			item.addChild(bg);
 			item.addChild(textField);
 			item.x = left;
 			item.y = top;
-			GameObjectManager.singleton.addChild(item);
 			this.responsibilities.push(item);
+            this.addChild(item);
 		}
 	}
 }

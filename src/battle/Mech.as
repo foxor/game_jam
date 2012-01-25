@@ -20,6 +20,9 @@ package battle {
     
     public class Mech extends MovingGameObject {
         
+        public static var MECH_COLOUR:int = 0x888888
+        public static var MECH_SIZE:int = 30;
+        
         private var _teamId:String;
         private var _owner:BattleScreen;
         private var _selectionHighlight:Sprite;
@@ -29,7 +32,15 @@ package battle {
             super();
             _owner = owner;
             _sortOrder = 100;
-            addChild(new Circle());
+            addChild(new Circle(MECH_COLOUR, MECH_SIZE));
+
+            var arm:Sprite = new Sprite();
+            arm.graphics.beginFill(0x000000);
+            arm.graphics.drawRect(0, 0, 80, 10);
+            arm.graphics.endFill();
+                        
+            addChild(arm);
+            
 			fb_loader.load(this);
 			PhysicsManager.singleton.addBody(_range = new MechRange(this));
         }

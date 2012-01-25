@@ -10,7 +10,7 @@ package screens
 	
 	import game.Game;
 	
-	import gameobjects.GameObject;
+	import gameobjects.GameView;
 	import gameobjects.GameObjectManager;
     
 	public class Menu extends Screen
@@ -22,12 +22,12 @@ package screens
 		public function Menu(x:int=0, y:int=0, width:int=1000, height:int=1000)
 		{
 			boundingBox = new Rectangle(x, y, width, height);
-			var background:GameObject = new GameObject();
+			var background:GameView = new GameView();
 			background.sortOrder = 10;
 			background.graphics.beginFill(0xCD853F);
 			background.graphics.drawRect(0, 0, 1000, 1000);
 			background.graphics.endFill();
-			GameObjectManager.singleton.addChild(background);
+            this.addChild(background);
 		}
 		
 		protected function set top (val:int):void {
@@ -67,13 +67,13 @@ package screens
 			hBar.graphics.beginFill(0x000000);
 			hBar.graphics.drawRect(0, 50, 1000, 10);
 			hBar.graphics.endFill();
-			var title:GameObject = new GameObject();
+			var title:GameView = new GameView();
 			title.addChild(hBar);
 			title.addChild(textField);
 			title.x = left;
 			title.y = top;
 			title.sortOrder = 100;
-			GameObjectManager.singleton.addChild(title);
+			this.addChild(title);
 			responsibilities.push(title);
 			top += 60;
 		}
@@ -84,10 +84,7 @@ package screens
 		
 		override public function shutDown():void {
 			for (var i:int = 0; i < responsibilities.length; i++) {
-				GameObjectManager.singleton.removeChild(responsibilities[i]);
-			}
-			if (parent) {
-				parent.removeChild(this);
+				this.removeChild(responsibilities[i]);
 			}
 		}
 	}
