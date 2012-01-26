@@ -9,17 +9,15 @@ package
 	
 	import gameobjects.GameObject;
 	
+	import rpg.Friend;
+	
 
 	public class fb_loader
 	{
 		public static function load(parent:Sprite, id:String=null):void
 		{
 			if (id == null) {
-				id = ExternalInterface.call('random_fb_id');
-				if (id == null) {
-					trace("External call failed");
-					id = "1189440211";
-				}
+				id = Friend.getRandomId();
 			}
 			var myLoader:Loader = new Loader();
 			myLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressStatus);
